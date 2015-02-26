@@ -1,7 +1,9 @@
-maintainer        "ModCloth, Inc."
-maintainer_email  "sysops@modcloth.com"
-description       "Configures the autofs service"
-version           "0.1.4"
+name 'autofs'
+maintainer 'University of Derby'
+maintainer_email 'ai@derby.ac.uk'
+description 'Configures the autofs service'
+version '0.2.0'
 
-supports "smartos"
-supports "solaris2"
+depends 'resource'
+depends 'chef-sugar'
+depends 'accumulator'

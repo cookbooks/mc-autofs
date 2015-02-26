@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: autofs
-# Recipe:: linux
+# Resource:: nfs
 #
-# Copyright ModCloth, Inc.
+# Copyright (C) 2015 University of Derby
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,19 +16,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+property :name, String, identity: true
+property :mount_point, Path do
+  default { name }
+end
+property :server, String
+property :export, Path
+property :mount_options, String
 
-package "nfs-common"
-package "autofs"
-
-include_recipe "autofs::common"
-
-node[:autofs][:maps].each do |map, args|
-  template args[:source].gsub(/file:/, '') do
-    owner "root"
-    group "root"
-    mode 0644
-    source "auto.map.erb"
-    variables(:keys => args[:keys])
-    notifies :reload, resources(:service => "autofs"), :immediately
-  end
+recipe do
+  directory mount_point
 end
